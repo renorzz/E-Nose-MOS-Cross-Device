@@ -1,0 +1,31 @@
+[package]
+name = "electronic_nose"
+version = "0.1.0"
+edition = "2021"
+resolver = "2"
+
+[[bin]]
+name = "electronic_nose"
+path = "src/main.rs"
+harness = false
+
+[dependencies]
+esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal" }
+esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc" }
+esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys" }
+anyhow = "1"
+dht-sensor = "0.2"
+
+[build-dependencies]
+embuild = { version = "0.32.0", features = ["espidf"] }
+
+[profile.release]
+opt-level = "s"
+
+[package.metadata.esp-idf-sys]
+esp_idf_version = "v5.2.1"
+
+[patch.crates-io]
+esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys" }
+esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal" }
+esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc" }
