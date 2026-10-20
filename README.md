@@ -30,7 +30,11 @@ Sistem ini terdiri dari 3 bagian utama:
    - 1x Bi-directional Logic Level Shifter (menjembatani logika 3.3V ESP32 dan 4.3V/5V ADS1115).
    - 2x Sensor Suhu/Kelembaban DHT22 (Chamber & Ambien).
 2. **Firmware Mikrokontroler (ESP32-S3)**: Program Bare-Metal Rust (`no_std` dengan `esp-hal` v1.1.1) untuk membaca ADC via I2C (100 kHz), menjalankan timeline siklus pengujian, dan mentransmisikan data JSON via Serial UART setiap 1 detik.
-3. **Aplikasi Desktop GUI (Rust `eframe` / `egui`)**: Dashboard antarmuka komputer untuk kontrol START/STOP, plotting 8 grafik sensor secara *realtime*, pemantauan status siklus, dan ekspor data ke format CSV/Excel.
+3. **Aplikasi Desktop GUI (Rust `eframe` / `egui`)**: Dashboard antarmuka komputer untuk kontrol START/STOP, plotting 8 grafik sensor secara *realtime*, visualisasi mode Split (Tegangan mV & Normalized Rs/R0 satu sumbu Y), pemantauan status siklus, dan ekspor data ke format CSV/Excel.
+
+<p align="center">
+  <img src="assets/enose_gui_dashboard_preview.png" alt="E-Nose GUI Dashboard Preview" width="100%">
+</p>
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -263,15 +267,15 @@ TUJUAN:     Stabilisasi Sensor   Penghisapan Sampel    Puncak Respon       Pembe
    ```
 
 ### 🚀 Step 1: Upload Firmware ke ESP32-S3
-```powershell
-cd "D:\Project Coding\TA-Rafi-Cepmek-main\TA-Rafi-Cepmek-main\esp32_no_std"
-cargo espflash flash --release --port COM17
+```bash
+cd esp32_no_std
+cargo espflash flash --release
 ```
-*(Ganti `COM17` dengan nomor port USB ESP32 Anda)*.
+*(Tentukan port serial USB ESP32 Anda jika diminta)*.
 
 ### 💻 Step 2: Menjalankan Dashboard GUI
-```powershell
-cd "D:\Project Coding\TA-Rafi-Cepmek-main\TA-Rafi-Cepmek-main\gui_rust"
+```bash
+cd gui_rust
 cargo run
 ```
 1. Pilih port serial USB ESP32 (misal **`COM17`**).
